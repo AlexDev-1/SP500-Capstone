@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SP500</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+</head>
+<body>
+  
+  {% block content %}
+  {% endblock %}
+
+  <!-- Scripts necessary for Bootstrap and functionality -->
+  <!-- Order is important: jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://unpkg.com/jquery"></script>
+  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- External JavaScript File -->
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
