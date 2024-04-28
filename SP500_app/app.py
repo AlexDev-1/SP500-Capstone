@@ -1,4 +1,3 @@
-import json
 import os
 from dotenv import load_dotenv
 
@@ -6,7 +5,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g, 
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from service.database_models import db, connect_db, User, Favorite, Stock
+from service.database_models import db, connect_db, Stock, Mention, StockPrice
 
 CURR_USER_KEY = "curr_user"
 
@@ -21,9 +20,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
+app.config['SQLALCHEMY_ECHO'] = True
 toolbar = DebugToolbarExtension(app)
 
-api_key = os.environ.get('APIKEY')
+api_key = os.environ.get('APCA-API-KEY-ID')
+api_key_secret= os.environ.get('APCA-API-SECRET-KEY')
 
 connect_db(app)
 

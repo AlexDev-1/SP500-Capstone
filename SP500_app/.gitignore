@@ -28,6 +28,7 @@ instance/
 # Virtual environments
 venv/
 ENV/
+.venv/
 env/
 .env
 
@@ -40,3 +41,5 @@ env/
 
 # VS Code
 .vscode/
+
+test.py
