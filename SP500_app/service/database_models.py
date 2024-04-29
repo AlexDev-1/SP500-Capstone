@@ -18,6 +18,14 @@ class Stock(db.Model):
     # Relationships
     prices = db.relationship('StockPrice', backref='prices_stock', lazy=True)
 
+    def to_dict(self):
+        return {
+            "symbol" : self.symbol
+            , "name" : self.name
+            , "industry" : self.industry
+            , "sector" : self.sector
+        }
+
 
 class StockPrice(db.Model):
     __tablename__ = 'stock_price'
@@ -29,6 +37,17 @@ class StockPrice(db.Model):
     low = db.Column(db.Numeric, nullable=False)
     close = db.Column(db.Numeric, nullable=False)
     volume = db.Column(db.Numeric, nullable=False)
+
+    def to_dict(self):
+        return {
+            "symbol" : self.symbol
+            , "dt" : self.dt
+            , "open" : self.open
+            , "high" : self.high
+            , "low" : self.low
+            , "close" : self.close
+            , "volume" : self.volume
+        }
 
 
 def connect_db(app):

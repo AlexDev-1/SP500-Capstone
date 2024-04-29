@@ -1,11 +1,10 @@
 import requests
-from app import db, headers, base_url
 from service.database_models import Stock, StockPrice
 from datetime import datetime
 from sqlalchemy import func
 from dateutil.relativedelta import relativedelta
 
-def insert_stock_prices():
+def insert_stock_prices(db, headers, base_url):
     try:
         # Clear existing data
         db.session.query(StockPrice).delete()
@@ -77,7 +76,7 @@ def insert_stock_prices():
         db.session.close()
         print("Database session closed.")
 
-def fetch_incremental_stock_prices(symbol=None):
+def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
     try:
         if symbol:
             # Fetch latest date only for the specified symbol

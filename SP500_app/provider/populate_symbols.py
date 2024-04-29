@@ -1,13 +1,12 @@
 import pandas as pd
 from requests_html import HTMLSession
 from service.database_models import Stock
-from app import db
 from io import StringIO
 import yfinance as yf
 
 
 # Function to fetch S&P 500 symbols and populate the database
-def fetch_sp500_symbols():
+def fetch_sp500_symbols(db):
     try:
         url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
         session = HTMLSession()
@@ -30,12 +29,12 @@ def fetch_sp500_symbols():
         df['symbol'] = df['symbol'].str.replace("'", "")
 
         # Insert the data into the database
-        insert_stocks_data(df)
+        insert_stocks_data(df,db)
     except Exception as e:
         print(f"An error occurred: {e}")
 
 # Function to insert data into the database using SQLAlchemy
-def insert_stocks_data(df):
+def insert_stocks_data(df,db):
     stocks_data = []
     for index, row in df.iterrows():
         out = yahoo_company_info(row['symbol'])
