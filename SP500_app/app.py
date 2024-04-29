@@ -5,7 +5,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g, 
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from service.database_models import db, connect_db, Stock, Mention, StockPrice
+from service.database_models import db, connect_db, Stock, StockPrice
 
 CURR_USER_KEY = "curr_user"
 

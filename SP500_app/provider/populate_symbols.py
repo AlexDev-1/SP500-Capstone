@@ -1,4 +1,3 @@
-from sqlalchemy.exc import IntegrityError
 import pandas as pd
 from requests_html import HTMLSession
 from service.database_models import Stock
@@ -63,7 +62,3 @@ def yahoo_company_info(ticker):
     company_information_layout = ["longName", "sector", "industry"]
     out = {v: company_info[v] for v in company_information_layout if v in company_info}
     return out
-
-# Execute the main function
-if __name__ == "__main__":
-    fetch_sp500_symbols()
