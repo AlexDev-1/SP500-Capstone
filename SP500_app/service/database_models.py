@@ -38,9 +38,7 @@ class StockPrice(db.Model):
     high = db.Column(db.Numeric, nullable=False)
     low = db.Column(db.Numeric, nullable=False)
     close = db.Column(db.Numeric, nullable=False)
-    adjusted_close = db.Column(db.Numeric, nullable=False)
     volume = db.Column(db.Numeric, nullable=False)
-    dividend_amount = db.Column(db.Numeric, nullable=False)
 
 
 def connect_db(app):

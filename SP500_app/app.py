@@ -23,8 +23,13 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "it's a secret")
 app.config['SQLALCHEMY_ECHO'] = True
 toolbar = DebugToolbarExtension(app)
 
-api_key = os.environ.get('APCA-API-KEY-ID')
-api_key_secret= os.environ.get('APCA-API-SECRET-KEY')
+base_url = os.environ.get('APCA_API_BASE_URL')
+
+headers = {
+    "accept": "application/json",
+    "APCA-API-KEY-ID": os.environ.get('APCA-API-KEY-ID'),
+    "APCA-API-SECRET-KEY": os.environ.get('APCA-API-SECRET-KEY')
+}
 
 connect_db(app)
 
