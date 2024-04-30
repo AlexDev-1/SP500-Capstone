@@ -1,56 +1,29 @@
-# Capstone Project One
+# SP500-Capstone
+The application is designed to interact with S&amp;P 500 stock data, enabling users to fetch, predict, and visualize stock price movements effectively. This tool is particularly useful for investors and financial analysts who require up-to-date stock data and future price predictions to make informed decisions.
 
-We have broken down the Capstone Project into easy-to-follow steps. Each step of the capstone contains a link with instructions for that step. Here’s a quick overview of what you’ll do for each step of your capstone project:
+## Technologies Used:
+- <B>Python</B>: The primary programming language for backend development.
+- <B>Flask</B>: A lightweight WSGI web application framework used to build the web interface.
+- <B>SQLAlchemy</B>: The SQL toolkit and ORM used for database operations.
+- <B>AWS AutoGluon</B>: Open-source tool from Amazon that provides powerful, automated machine-learning capabilities specifically tuned for time series forecasting.
+- <B>PostgreSQL</B>: The relational database management system chosen for its robustness and compatibility with large-scale data operations.
+- <B>GitHub</B>: Used for source code management and version control, facilitating collaborative features and code reviews.
 
-1. Step One: Initial Project Ideas: You’ll pick up to 3 project ideas to propose to your mentor and the Springboard community. You’ll also explore some potential APIs.
-2. Step Two: Project Proposal: For this step, you’ll write a proposal for the site you want to build. This will help your mentor better understand your chosen capstone project idea.
-3. Step Three: Schema Design and API Selection: After your mentor approves of your capstone project proposal, you’ll figure out the database design of your application and which API you’ll be using.
-4. Step Four: Coding User Flows: Once you’ve figured out what you’re building, you’ll write the code to implement it. It’s important to think about what you want a user’s experience to be like as they navigate your site.
-5. Step Five: Polishing Your Application: Once you have the core functionality implemented, you’ll focus on additional UI enhancements and styling for your application.
-6. Step Six: Documenting and Submission: You’ve done a lot of work so now it’s time to show your mentor your progress! Create a README in markdown, make sure your GitHub is organized, and submit your finalized project.
+## Application Workflow:
+- Users can input a stock symbol via the web interface.
+- The app retrieves the relevant data from the database and displays both historical data and future predictions.
+- It allows users to see various quantile predictions (e.g., 10th percentile, median, 90th percentile), providing a comprehensive view of potential stock price scenarios.
 
-## Overview
+## Development Expertise
+- <B>API</B> Integration and Data Handling: The application involves extensive use of APIs to fetch real-time and historical stock data, demonstrating skills in API consumption, data extraction, and transformation.
+- <B>Time Series Prediction</B>: Advanced use of AutoGluon to handle time series data, forecast future stock prices, and interpret model predictions to provide actionable insights.
+- <B>Database Management</B>: Proficient use of SQLAlchemy for database operations, showcasing the ability to design and manage complex data schemas effectively.
+- <B>Error Handling and Debugging</B>: Rigorous implementation of error handling within the Flask framework to ensure the application's reliability and stability. Debugging skills are highlighted through systematic identification and resolution of issues during development.
+- <B>Version Control and Deployment</B>: Proficient in using Git for version control, including managing and merging branches, handling pull requests, and pushing updates. Experience in deploying web applications, ensuring they are scalable and secure.
 
-For your first Capstone Project, you’ll build a database-driven website off an external
-API of your choice. Your finished capstone will be an integral part of your portfolio; it will demonstrate to potential employers everything you’ve learned from this course.
-
-We want you to work on a challenging project that will incorporate all of the back-end
-skills you’ve been developing and some of your front-end skills from the last section.
-The goal of this project isn’t to create something that’s never been done before. You
-could potentially create a website similar to one that already exists, or use a popular
-API. That being said, we do encourage you to be creative when building your site. You’re free to choose any API you’d like to use and we encourage you to tap into your
-imagination throughout the project.
-
-There is a term in software development called CRUD - Create, Read, Update, Delete. This refers to all of the basic operations that a relational database performs. Your website should have more functionality than simple CRUD.
-
-## Examples
-
-There are thousands of free, publically available APIs. If you love cars, you can pick
-from dozens of automotive APIs to build something that will reflect your passion. If you’re more into history, look into an API that lists the nobility of Europe. If you love sports, build a site about India’s top cricketers or your local football league.
-
-Let’s give you an example of what a site could look like. Say you choose an API like The
-Movie Database, your site could have a landing page saying “Welcome To MyMovieDB” and a separate page that displays a sortable list of all the movies in the API. This would be CRUD.
-
-You could implement various filtering methods - to filter based on an actor, a director,
-the year the movie was released, etc. When you click on the record associated with the movie, you could redirect a user to a separate page that displays all of the data
-associated with that movie.
-
-Now let’s talk about bells and whistles. If you were to implement ONE feature like
-creating sharable lists of your favorite movies, finding and playing a trailer for the movie on-page, or a simple “recommendation system” that would recommend new movies based on similarities to movies you liked, this would go beyond CRUD. A simple
-“recommendation system” would be along the lines of, if you like Big Daddy with Adam
-Sandler, recommending other Adam Sandler comedies from the 90s or recommending
-movies his co-stars like Steve Buscemi starred in. This does not mean creating a
-complicated system from scratch like Netflix.
-
-It is better to pick a project that errs on the side of simple and boring than a complex
-project with a million moving parts you can get stuck in.
-
-[Here is an example of a previous project.](https://github.com/juliahazer/chart-my-team)
-
-## Guidelines
-
-1. You will use the following technologies in this project: Python/Flask, PostgreSQL, SQLAlchemy, Heroku, Jinja, RESTful APIs, JavaScript, HTML, CSS. Depending on your idea, you might end up using WTForms and other technologies discussed in the course.
-2. Every step of the project has submissions. This will alert your mentor to evaluate your work. Pay attention to the instructions so you submit the right thing. You will submit the link to your GitHub repo several times, this is for your mentor’s convenience. Your URL on GitHub is static and will not change.
-3. The first two steps require mentor approval to proceed, but after that, you are free to continue working on the project after you submit your work. For instance, you don’t need your mentor to approve your database schema before you start working on your site. Likewise, you don’t need your mentor to approve the first iteration of your site before you start polishing it.
-4. If you get stuck, there is a wealth of resources at your disposal. The course contains all of the material you will need to complete this project, but a well-phrased Google search might yield you an immediate solution to your problem. Don’t forget that your Slack community, TAs, and your mentor there to help you out.
-5. Make sure you use a free API and deploy your project on Heroku , so everyone can see your work!
+## Key Features:
+- <B>Stock Data Interaction</B>: The app integrates with various financial data sources to retrieve real-time and historical data about S&P 500 stocks.
+- <B>Predictive Analytics</B>: The app utilizes AWS AutoGluon's time series forecasting capabilities to predict future stock prices based on historical data. This feature uses advanced machine learning techniques to forecast stock price movements over several months.
+- <B>Data Management</B>: Using SQLAlchemy, the app efficiently manages and queries stock data stored in a PostgreSQL database. This setup allows for robust data retrieval, manipulation, and storage, facilitating complex queries and data analysis.
+- <B>User Interface</B>: Built with Flask, the app offers a web-based interface where users can query specific stocks, view historical data, and receive predictions. The interface is designed to be user-friendly, providing clear and actionable insights.
+- <B>Version Control and Deployment</B>: The development process involves meticulous version control using Git, with the codebase hosted on GitHub. This setup not only ensures code integrity and collaboration but also simplifies deployment and updates.
