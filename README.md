@@ -23,14 +23,17 @@ The application is designed to interact with S&amp;P 500 stock data, enabling us
 
 ## API:
 - <B>[/stocks](https://sp500-capstone.onrender.com/stocks)</B>: Calls data from all the S&P 500 companies.
--- Response {
+
+Response {
     "industry": "Conglomerates",
     "name": "3M Company",
     "sector": "Industrials",
     "symbol": "MMM"
   }
+
 - <B>[/price_data/symbol](https://sp500-capstone.onrender.com/price_data/AAPL)</B>: Retrives 10 years worth of historical price data for a specific stock.
--- Response {
+
+Response {
     "close": "148.84",
     "dt": "Sun, 01 May 2022 00:00:00 GMT",
     "high": "166.48",
@@ -39,8 +42,10 @@ The application is designed to interact with S&amp;P 500 stock data, enabling us
     "symbol": "AAPL",
     "volume": "2560080200"
   }
+
 - <B>[/price_data/symbol/refresh](https://sp500-capstone.onrender.com/price_data/AAPL/refresh)</B>: Inccremental Refresh to obtain and add more recent data into the PostgreSQL database. Outputs the historical data for a sepecific stock.
--- Response {
+
+Response {
     "close": "148.84",
     "dt": "Sun, 01 May 2022 00:00:00 GMT",
     "high": "166.48",
@@ -49,3 +54,4 @@ The application is designed to interact with S&amp;P 500 stock data, enabling us
     "symbol": "AAPL",
     "volume": "2560080200"
   }
+  
