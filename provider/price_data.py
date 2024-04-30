@@ -17,7 +17,7 @@ def insert_stock_prices(db, headers, base_url):
         formatted_to = to.strftime("%Y-%m-%d")
 
         # Get yesterday's date
-        from_ = datetime.today() - relativedelta(months=36)
+        from_ = datetime.today() - relativedelta(months=24)
 
         # Format the date as "YYYY-MM-DD"
         formatted_from = from_.strftime("%Y-%m-%d") 
