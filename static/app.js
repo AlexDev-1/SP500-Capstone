@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchStockData() {
-    axios.get('http://127.0.0.1:5000/stocks')
+    axios.get('https://sp500-capstone.onrender.com/stocks')
         .then(function (response) {
             stockData = response.data;  // Store the fetched data
             console.log("Data loaded successfully");
