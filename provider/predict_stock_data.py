@@ -8,9 +8,9 @@ def predict_stock(df, target):
 
     # Prepare and fit the predictor
     ts_df = TimeSeriesDataFrame.from_data_frame(df, timestamp_column='dt', id_column='symbol')
-    predictor = TimeSeriesPredictor(prediction_length=2, target=target, freq='M', log_to_file=False,
+    predictor = TimeSeriesPredictor(prediction_length=6, target=target, freq='M', log_to_file=False,
                                     cache_predictions=False, quantile_levels=[0.1, 0.5, 0.9], eval_metric='WAPE')
-    predictor.fit(ts_df, presets='chronos_tiny', time_limit=25)
+    predictor.fit(ts_df, presets='high_quality', time_limit=10)
     forecast = predictor.predict(ts_df)
 
     # Display the forecast

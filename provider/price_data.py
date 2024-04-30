@@ -17,7 +17,7 @@ def insert_stock_prices(db, headers, base_url):
         formatted_to = to.strftime("%Y-%m-%d")
 
         # Get yesterday's date
-        from_ = datetime.today() - relativedelta(months=24)
+        from_ = datetime.today() - relativedelta(months=121)
 
         # Format the date as "YYYY-MM-DD"
         formatted_from = from_.strftime("%Y-%m-%d") 
@@ -31,7 +31,7 @@ def insert_stock_prices(db, headers, base_url):
             page_token = None
 
             while True:
-                url = f"{base_url}/v2/stocks/{symbol}/bars?&timeframe=1M&start={formatted_from}&end={formatted_to}&adjustment=raw&feed=sip&sort=asc"
+                url = f"{base_url}/v2/stocks/{symbol}/bars?&timeframe=1D&start={formatted_from}&end={formatted_to}&adjustment=raw&feed=sip&sort=asc"
                 if page_token:
                     url += f"&page_token={page_token}"
 
@@ -102,7 +102,7 @@ def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
             # Format the date as "YYYY-MM-DD"
             formatted_today = to.strftime("%Y-%m-%d")
 
-            url = f"{base_url}/v2/stocks/{symbol}/bars?timeframe=1M&start={formatted_next_day}&end={formatted_today}&adjustment=raw&feed=sip&sort=asc"
+            url = f"{base_url}/v2/stocks/{symbol}/bars?timeframe=1D&start={formatted_next_day}&end={formatted_today}&adjustment=raw&feed=sip&sort=asc"
             response = requests.get(url, headers=headers)
             response = requests.get(url, headers=headers)
             print("Response Status Code:", response.status_code)

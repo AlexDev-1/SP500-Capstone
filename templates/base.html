@@ -1,32 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SP500</title>
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
+    <meta charset="UTF-8">
+    <title>Stock Visualization</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-  
-  <h1>Hello</h1>
-  <ul id="app"></ul>
-
-  <!-- Scripts necessary for Bootstrap and functionality -->
-  <!-- Order is important: jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://unpkg.com/jquery"></script>
-  <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
-  <script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-  <!-- External JavaScript File -->
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <div class="container mt-5">
+        <h1>SP500 Stock Viewer</h1>
+        <select id="searchInput" class="form-control select2" style="width: 100%;" aria-label="Search for a stock">
+          <option>Select a stock...</option>
+      </select>
+        <div class="chart-container">
+            <canvas id="stockChart"></canvas>
+        </div>
+        <!-- <div class="btn-group mt-3" role="group" aria-label="Timescale">
+            <button type="button" class="btn btn-secondary" onclick="changeTimescale('week')">Week</button>
+            <button type="button" class="btn btn-secondary" onclick="changeTimescale('month')">Month</button>
+            <button type="button" class="btn btn-secondary" onclick="changeTimescale('year')">Year</button>
+        </div> -->
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
