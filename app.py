@@ -79,3 +79,10 @@ def refresh_stock_data(symbol):
     data_price = StockPrice.query.filter_by(symbol=symbol)
     price_list = [price.to_dict() for price in data_price]
     return jsonify(price_list)
+
+
+if __name__ == '__main__':
+    # Get the port number from the environment variable
+    port = int(os.getenv('PORT', 5000))
+    # Run the app on the host 0.0.0.0 and on the port from the environment
+    app.run(host='0.0.0.0', port=port)
