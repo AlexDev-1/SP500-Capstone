@@ -1,56 +1,32 @@
 # [SP500-Capstone](https://sp500-capstone.onrender.com/)
-The application is designed to interact with S&amp;P 500 stock data, enabling users to fetch, predict, and visualize stock price movements effectively. This tool is particularly useful for investors and financial analysts who require up-to-date stock data and future price predictions to make informed decisions.
 
-## Technologies Used:
-- <B>Python</B>: The primary programming language for backend development.
-- <B>Flask</B>: A lightweight WSGI web application framework used to build the web interface.
-- <B>SQLAlchemy</B>: The SQL toolkit and ORM used for database operations.
-- <B>AWS AutoGluon</B>: Open-source tool from Amazon that provides powerful, automated machine-learning capabilities specifically tuned for time series forecasting.
-- <B>PostgreSQL</B>: The relational database management system chosen for its robustness and compatibility with large-scale data operations.
-- <B>GitHub</B>: Used for source code management and version control, facilitating collaborative features and code reviews.
+This application provides interactive features for analyzing and predicting stock prices within the S&P 500 index. It enables users to fetch real-time and historical stock data, view stock-related news, and use predictive models to forecast future stock price movements.
 
-## Application Workflow:
-- Users can input a stock symbol via the web interface.
-- The app retrieves the relevant data from the database and displays both historical data and future predictions.
-- It allows users to see various quantile predictions (e.g., 10th percentile, median, 90th percentile), providing a comprehensive view of potential stock price scenarios.
+## Features
 
-## Key Features:
-- <B>Stock Data Interaction</B>: The app integrates with various financial data sources to retrieve real-time and historical data about S&P 500 stocks.
-- <B>Predictive Analytics</B>: The app utilizes AWS AutoGluon's time series forecasting capabilities to predict future stock prices based on historical data. This feature uses advanced machine learning techniques to forecast stock price movements over several months.
-- <B>Data Management</B>: Using SQLAlchemy, the app efficiently manages and queries stock data stored in a PostgreSQL database. This setup allows for robust data retrieval, manipulation, and storage, facilitating complex queries and data analysis.
-- <B>User Interface</B>: Built with Flask, the app offers a web-based interface where users can query specific stocks, view historical data, and receive predictions. The interface is designed to be user-friendly, providing clear and actionable insights.
-- <B>Version Control and Deployment</B>: The development process involves meticulous version control using Git, with the codebase hosted on GitHub. This setup not only ensures code integrity and collaboration but also simplifies deployment and updates.
+- **Stock Data Retrieval**: Fetch real-time and historical data for any stock in the S&P 500.
+- **Price Predictions**: Utilize advanced machine learning models to predict future stock prices.
+- **Stock News**: Access and display recent news articles related to specific stocks.
+- **Data Visualization**: Interactive charts to visualize stock price trends over time.
 
-## API:
-- <B>[/stocks](https://sp500-capstone.onrender.com/stocks)</B>: Calls data from all the S&P 500 companies.
+## Technologies Used
 
-{
-    "industry": "Conglomerates",
-    "name": "3M Company",
-    "sector": "Industrials",
-    "symbol": "MMM"
-  }
+- **Python & Flask**: For backend API and server-side logic.
+- **SQLAlchemy**: ORM for database transactions.
+- **PostgreSQL**: Database for storing stock data.
+- **AutoGluon**: Machine learning library for time series forecasting.
+- **yfinance & Alpaca API**: To fetch stock data from Yahoo Finance and Alpaca Markets.
+- **Bootstrap & Chart.js**: For frontend styling and data visualization.
 
-- <B>[/price_data/symbol](https://sp500-capstone.onrender.com/price_data/AAPL)</B>: Retrives 10 years worth of historical price data for a specific stock.
+## Usage
 
-{
-    "close": "148.84",
-    "dt": "Sun, 01 May 2022 00:00:00 GMT",
-    "high": "166.48",
-    "low": "132.61",
-    "open": "156.71",
-    "symbol": "AAPL",
-    "volume": "2560080200"
-  }
+- Access the web interface at **https://sp500-capstone.onrender.com/**.
+- Use the search bar to select a stock and view detailed information, including stock prices, predictions, and news.
+- Interact with the stock chart to view different data points.
 
-- <B>[/price_data/symbol/refresh](https://sp500-capstone.onrender.com/price_data/AAPL/refresh)</B>: Inccremental Refresh to obtain and add more recent data into the PostgreSQL database. Outputs the historical data for a sepecific stock.
+## API Endpoints
 
-{
-    "close": "148.84",
-    "dt": "Sun, 01 May 2022 00:00:00 GMT",
-    "high": "166.48",
-    "low": "132.61",
-    "open": "156.71",
-    "symbol": "AAPL",
-    "volume": "2560080200"
-  }
+- `GET /stocks`: Retrieves a list of all S&P 500 stocks.
+- `GET /price_data/<symbol>`: Retrieves historical price data for the specified stock symbol using the Alpaca Market Data API.
+- `GET /price_data/<symbol>/refresh`: Uses the Alpaca API to update the price data for the specified stock symbol with the most recent information.
+- `GET /get_news/<symbol>`: Retrieves recent news articles related to the specified stock symbol, also facilitated by the Alpaca News API.
