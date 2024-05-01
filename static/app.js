@@ -72,6 +72,7 @@ function adjustNewsContainerHeight() {
 document.addEventListener('DOMContentLoaded', function() {
     initializeSelect2();
     fetchStockData(); 
+    adjustDropdownWidth();
     setTimeout(() => {adjustNewsContainerHeight()},2000)
     setTimeout(() => {fetchNews('AAPL')},2200);
     window.addEventListener('resize', adjustTopBarWidth);
@@ -221,4 +222,20 @@ function displayNews(news) {
 
 function changeTimescale(timescale) {
     console.log("Changing timescale to:", timescale);
+}
+
+$(document).ready(function() {
+    $('#searchInput').select2({
+        width: '100%',
+        dropdownParent: $('.row_topbar') // This helps with modal/dialog usage scenarios
+    });
+
+    // Adjust dropdown on init and resize
+    adjustDropdownWidth();
+    $(window).resize(adjustDropdownWidth);
+});
+
+function adjustDropdownWidth() {
+    var newWidth = $('#searchInput').width(); // Get the current width of the input
+    $('.select2-dropdown select2-dropdown--below').css('width', newWidth + 'px'); // Adjust the dropdown width
 }
