@@ -65,8 +65,6 @@ function adjustNewsContainerHeight() {
         // Set the width of the search input to match the total width
         searchInput.style.width = totalWidth + 'px';
 
-        // Optionally, adjust the positioning if needed
-        // searchInput.style.left = dataContainer.offsetLeft + 'px';
     }
 }
 
@@ -110,6 +108,7 @@ function fetchStockData() {
             populateSearchOptions();
             if (stockData.length > 0) {
                 fetchStockPrices('AAPL');
+                fetchNews('AAPL')
             }
         })
         .catch(error => {
@@ -195,6 +194,7 @@ function fetchNews(symbol) {
     axios.get(`https://sp500-capstone.onrender.com/get_news/${symbol}`)
         .then(response => {
             const newsData = response.data;
+            console.log(newsData);
             displayNews(newsData);
         })
         .catch(error => {
@@ -210,6 +210,7 @@ function displayNews(news) {
         newsItem.className = 'news-item';
         newsItem.innerHTML = `
             <h5>${item.headline}</h5>
+            <h6>${item.created}</h6>
             <p>${item.content}</p>
             <a href="${item.url}" target="_blank">Read more</a>
             <hr>

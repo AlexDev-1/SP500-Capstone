@@ -81,5 +81,5 @@ def refresh_stock_data(symbol):
 @app.route('/get_news/<string:symbol>')
 def get_news_stock(symbol):
     data_news = StockNews.query.filter_by(symbol=symbol)
-    news_list = [price.to_dict() for price in data_news]
+    news_list = [news.to_dict() for news in data_news]
     return jsonify(news_list)
