@@ -10,13 +10,15 @@
 <body>
     <h1 class="text-center mb-4">SP500 Stock Viewer</h1>
     <div class="container">
-        <select id="searchInput" class="form-control select2" aria-label="Search for a stock">
-            <option>Select a stock...</option>
-        </select>
+        <div class="row_topbar">
+            <select id="searchInput" class="form-control select2" aria-label="Search for a stock">
+                <option>Select a stock...</option>
+            </select>
+        </div>
         <div class="row">
             <div class="col-lg-9 col-md-9">
                 <div class="container_data">
-                    <div class="chart-container my-3">
+                    <div class="chart-container">
                         <canvas id="stockChart"></canvas>
                     <div data-v-6c4d3f30 class="chart-actions">
                         <a data-v-6c4d3f30="" class="chart-action" data-action="Fill: false (default)">
@@ -39,11 +41,18 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-3">
-                <div class="container_news overflow-auto">
+                <div class="container_news overflow-scroll">
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').select2({
+                width: '100%'
+            });
+        });
+    </script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="https://unpkg.com/jquery"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>

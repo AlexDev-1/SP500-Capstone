@@ -51,10 +51,44 @@ const actions = [
   }
 ];
 
+function adjustNewsContainerHeight() {
+    var dataContainer = document.querySelector('.container_data');
+    var newsContainer = document.querySelector('.container_news');
+    var searchInput = document.querySelector('#searchInput');
+
+    if (dataContainer && newsContainer && searchInput) {
+        newsContainer.style.height = dataContainer.offsetHeight + 'px';
+
+        // Calculate the total width of data container and news container
+        var totalWidth = dataContainer.offsetWidth + newsContainer.offsetWidth;
+
+        // Set the width of the search input to match the total width
+        searchInput.style.width = totalWidth + 'px';
+
+        // Optionally, adjust the positioning if needed
+        // searchInput.style.left = dataContainer.offsetLeft + 'px';
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     initializeSelect2();
-    fetchStockData();
+    fetchStockData(); 
+    setTimeout(() => {adjustNewsContainerHeight()},2000)
+    setTimeout(() => {fetchNews('AAPL')},2200);
+    window.addEventListener('resize', adjustTopBarWidth);
+    window.addEventListener('resize', adjustNewsContainerHeight);
 });
+
+function adjustTopBarWidth() {
+    var rowWidth = document.querySelector('.row').offsetWidth;
+    var rowTopbar = document.querySelector('.row_topbar');
+    if (rowTopbar) {
+        rowTopbar.style.width = rowWidth + 'px';
+    }
+}
+
+
 
 function initializeSelect2() {
     $('#searchInput').select2({
@@ -76,7 +110,6 @@ function fetchStockData() {
             populateSearchOptions();
             if (stockData.length > 0) {
                 fetchStockPrices('AAPL');
-                fetchNews('AAPL')
             }
         })
         .catch(error => {
@@ -156,6 +189,7 @@ function updateChart(stock, stockPrices) {
             action.handler(stockChart);
         });
     });
+    adjustNewsContainerHeight();
 }
 function fetchNews(symbol) {
     axios.get(`https://sp500-capstone.onrender.com/get_news/${symbol}`)
