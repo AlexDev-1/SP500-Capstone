@@ -17,6 +17,7 @@ class Stock(db.Model):
 
     # Relationships
     prices = db.relationship('StockPrice', backref='prices_stock', lazy=True)
+    news = db.relationship('StockNews', backref='stock_news', lazy=True)
 
     def to_dict(self):
         return {
@@ -47,6 +48,27 @@ class StockPrice(db.Model):
             , "low" : self.low
             , "close" : self.close
             , "volume" : self.volume
+        }
+    
+class StockNews(db.Model):
+    __tablename__ = 'stock_news'
+
+    symbol = db.Column(db.Text, db.ForeignKey('stock.symbol'), index=True, primary_key=True)
+    created = db.Column(db.DateTime, index = True, primary_key=True)
+    author = db.Column(db.Text, nullable=False)
+    headline = db.Column(db.Text, nullable=False)
+    url = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    id = db.Column(db.Integer, nullable=False)
+
+    def to_dict(self):
+        return {
+            "symbol" : self.symbol
+            , "created" : self.created
+            , "author" : self.author
+            , "headline" : self.headline
+            , "url" : self.url
+            , "content" : self.content
         }
 
 

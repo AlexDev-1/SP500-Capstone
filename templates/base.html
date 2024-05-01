@@ -8,19 +8,41 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>SP500 Stock Viewer</h1>
-        <select id="searchInput" class="form-control select2" style="width: 100%;" aria-label="Search for a stock">
-          <option>Select a stock...</option>
-      </select>
-        <div class="chart-container">
-            <canvas id="stockChart"></canvas>
+    <h1 class="text-center mb-4">SP500 Stock Viewer</h1>
+    <div class="container">
+        <select id="searchInput" class="form-control select2" aria-label="Search for a stock">
+            <option>Select a stock...</option>
+        </select>
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
+                <div class="container_data">
+                    <div class="chart-container my-3">
+                        <canvas id="stockChart"></canvas>
+                    <div data-v-6c4d3f30 class="chart-actions">
+                        <a data-v-6c4d3f30="" class="chart-action" data-action="Fill: false (default)">
+                            Fill: false (default)
+                        </a>
+                        <a data-v-6c4d3f30="" class="chart-action" data-action="Fill: origin">
+                            Fill: origin
+                        </a>
+                        <a data-v-6c4d3f30="" class="chart-action" data-action="Fill: start">
+                            Fill: start
+                        </a>
+                        <a data-v-6c4d3f30="" class="chart-action" data-action="Fill: end">
+                            Fill: end
+                        </a>
+                        <a data-v-6c4d3f30="" class="chart-action" data-action="Smooth">
+                            Smooth
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="container_news overflow-auto">
+                </div>
+            </div>
         </div>
-        <!-- <div class="btn-group mt-3" role="group" aria-label="Timescale">
-            <button type="button" class="btn btn-secondary" onclick="changeTimescale('week')">Week</button>
-            <button type="button" class="btn btn-secondary" onclick="changeTimescale('month')">Month</button>
-            <button type="button" class="btn btn-secondary" onclick="changeTimescale('year')">Year</button>
-        </div> -->
     </div>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="https://unpkg.com/jquery"></script>

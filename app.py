@@ -1,16 +1,14 @@
 import os
-from urllib import response
 from dotenv import load_dotenv
 
-from flask import Flask, render_template, request, flash, redirect, session, g, abort, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
 from provider.predict_stock_data import predict_stock
 from provider.price_data import fetch_incremental_stock_prices
 from sqlalchemy import create_engine
 import pandas as pd
 
-from service.database_models import db, connect_db, Stock, StockPrice
+from service.database_models import StockNews, db, connect_db, Stock, StockPrice
 
 CURR_USER_KEY = "curr_user"
 
@@ -80,9 +78,8 @@ def refresh_stock_data(symbol):
     price_list = [price.to_dict() for price in data_price]
     return jsonify(price_list)
 
-
-if __name__ == '__main__':
-    # Get the port number from the environment variable
-    port = int(os.getenv('PORT', 5000))
-    # Run the app on the host 0.0.0.0 and on the port from the environment
-    app.run(host='0.0.0.0', port=port)
+@app.route('/get_news/<string:symbol>')
+def get_news_stock(symbol):
+    data_news = StockNews.query.filter_by(symbol=symbol)
+    news_list = [price.to_dict() for price in data_news]
+    return jsonify(news_list)

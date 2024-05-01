@@ -1,4 +1,3 @@
-from datetime import datetime
 from autogluon.timeseries import TimeSeriesDataFrame, TimeSeriesPredictor
 
 
@@ -21,8 +20,8 @@ def predict_stock(df, target):
     forecast_results = []
     for index, row in forecast.iterrows():
         forecast_results.append({
-            "symbol": index[0],  # index[0] corresponds to 'item_id'
-            "dt": index[1].strftime('%Y-%m-%d'),  # index[1] corresponds to 'timestamp'
+            "symbol": index[0],
+            "dt": index[1].strftime('%Y-%m-%d'),
             "mean": round(row['mean'], 2),
             "0.1": round(row['0.1'], 2),
             "0.5": round(row['0.5'], 2),
