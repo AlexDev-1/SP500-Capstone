@@ -70,7 +70,7 @@ function initializeSelect2() {
 }
 
 function fetchStockData() {
-    axios.get('http://127.0.0.1:5000/stocks')
+    axios.get('https://sp500-capstone.onrender.com/stocks')
         .then(response => {
             stockData = response.data;
             populateSearchOptions();
@@ -90,7 +90,7 @@ function populateSearchOptions() {
 }
 
 function fetchStockPrices(symbol) {
-    axios.get(`http://127.0.0.1:5000/price_data/${symbol}`)
+    axios.get(`https://sp500-capstone.onrender.com/price_data/${symbol}`)
         .then(response => {
             const stockPrices = response.data;
             const selectedStock = stockData.find(stock => stock.symbol === symbol);
@@ -158,7 +158,7 @@ function updateChart(stock, stockPrices) {
     });
 }
 function fetchNews(symbol) {
-    axios.get(`http://127.0.0.1:5000/get_news/${symbol}`)
+    axios.get(`https://sp500-capstone.onrender.com/get_news/${symbol}`)
         .then(response => {
             const newsData = response.data;
             displayNews(newsData);
