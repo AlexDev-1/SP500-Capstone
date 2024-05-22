@@ -1,5 +1,6 @@
 import requests
 from service.database_models import Stock, StockNews
+from service.alpaca_request import get_news_data,fetch_dates_for_news
 from datetime import datetime
 from sqlalchemy import func
 from dateutil.relativedelta import relativedelta
@@ -31,13 +32,8 @@ def insert_stock_news(db, headers, base_url):
             page_token = None
 
             while True:
-                url = f"{base_url}/v1beta1/news?start={formatted_from}&end={formatted_to}&sort=desc&symbols={symbol}&include_content=true&exclude_contentless=true"
-
-                if page_token:
-                    url += f"&page_token={page_token}"
-
-                response = requests.get(url, headers=headers)
-                print("Response Status Code:", response.status_code)
+                response = get_news_data(base_url,symbol,formatted_from,formatted_to,headers,page_token)
+                
                 if response.status_code != 200:
                     print(f"Failed to fetch data for {symbol}: {response.status_code}")
                     print("Response Body:", response.text)  # Additional Debugging
@@ -79,18 +75,7 @@ def insert_stock_news(db, headers, base_url):
 
 def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
     try:
-        if symbol:
-            # Fetch latest date only for the specified symbol
-            symbol_dates = db.session.query(
-                StockNews.symbol,
-                func.max(StockNews.created).label('latest_dt')
-            ).filter(StockNews.symbol == symbol).group_by(StockNews.symbol).all()
-        else:
-            # Fetch latest dates for all symbols
-            symbol_dates = db.session.query(
-                StockNews.symbol, 
-                func.max(StockNews.dt).label('latest_dt')
-            ).group_by(StockNews.symbol).all()
+        symbol_dates = fetch_dates_for_news(db,symbol)
 
         for symbol, latest_dt in symbol_dates:
             print(f"Updating data for {symbol} from {latest_dt}")
@@ -105,17 +90,13 @@ def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
                 formatted_to = to.strftime("%Y-%m-%d")
 
                 # Get from date
-                from_ = latest_dt.strftime("%Y-%m-%d")
+                formatted_from = latest_dt.strftime("%Y-%m-%d")
                 page_token = None
 
                 while True:
-                    url = f"{base_url}/v1beta1/news?start={from_}&end={formatted_to}&sort=desc&symbols={symbol}&include_content=true&exclude_contentless=true"
+                    
+                    response = get_news_data(base_url,symbol,formatted_from,formatted_to,headers,page_token)
 
-                    if page_token:
-                        url += f"&page_token={page_token}"
-
-                    response = requests.get(url, headers=headers)
-                    print("Response Status Code:", response.status_code)
                     if response.status_code != 200:
                         print(f"Failed to fetch data for {symbol}: {response.status_code}")
                         print("Response Body:", response.text)  # Additional Debugging

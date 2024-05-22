@@ -1,7 +1,6 @@
-import requests
 from service.database_models import Stock, StockPrice
+from service.alpaca_request import get_bars_data, fetch_dates_for_stocks
 from datetime import datetime
-from sqlalchemy import func
 from dateutil.relativedelta import relativedelta
 
 def insert_stock_prices(db, headers, base_url):
@@ -31,16 +30,12 @@ def insert_stock_prices(db, headers, base_url):
             page_token = None
 
             while True:
-                url = f"{base_url}/v2/stocks/{symbol}/bars?&timeframe=1M&start={formatted_from}&end={formatted_to}&adjustment=all&feed=sip&sort=asc"
-                if page_token:
-                    url += f"&page_token={page_token}"
+                
+                response = get_bars_data(base_url,symbol,formatted_from,formatted_to,headers,page_token)
 
-                response = requests.get(url, headers=headers)
-                print("Response Status Code:", response.status_code)
                 if response.status_code != 200:
                     print(f"Failed to fetch data for {symbol}: {response.status_code}")
                     print("Response Body:", response.text)  # Additional Debugging
-
                     break
 
                 data = response.json()
@@ -76,20 +71,11 @@ def insert_stock_prices(db, headers, base_url):
         db.session.close()
         print("Database session closed.")
 
+
 def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
     try:
-        if symbol:
-            # Fetch latest date only for the specified symbol
-            symbol_dates = db.session.query(
-                StockPrice.symbol,
-                func.max(StockPrice.dt).label('latest_dt')
-            ).filter(StockPrice.symbol == symbol).group_by(StockPrice.symbol).all()
-        else:
-            # Fetch latest dates for all symbols
-            symbol_dates = db.session.query(
-                StockPrice.symbol, 
-                func.max(StockPrice.dt).label('latest_dt')
-            ).group_by(StockPrice.symbol).all()
+
+        symbol_dates = fetch_dates_for_stocks(db,symbol)
 
         for symbol, latest_dt in symbol_dates:
             print(f"Updating data for {symbol} from {latest_dt}")
@@ -97,18 +83,15 @@ def fetch_incremental_stock_prices(db, headers, base_url,symbol=None):
             # Calculate the next day after the latest date
             next_day = latest_dt + relativedelta(days=1)
             formatted_next_day = next_day.strftime("%Y-%m-%d")
-            # Get yesterday's date
+
+            # Get to date
             to = datetime.today() - relativedelta(months=1)
+
             # Format the date as "YYYY-MM-DD"
             formatted_today = to.strftime("%Y-%m-%d")
 
-            url = f"{base_url}/v2/stocks/{symbol}/bars?timeframe=1M&start={formatted_next_day}&end={formatted_today}&adjustment=all&feed=sip&sort=asc"
-            response = requests.get(url, headers=headers)
-            response = requests.get(url, headers=headers)
-            print("Response Status Code:", response.status_code)
-            if response.status_code != 200:
-                print(f"Failed to fetch data for {symbol}: {response.status_code}")
-                print("Response Body:", response.text)  # Additional Debugging
+            # API call to Alpaca for specific symbol
+            response = get_bars_data(base_url,symbol,formatted_next_day,formatted_today,headers)
             
             if response.status_code == 200:
                 data = response.json()
